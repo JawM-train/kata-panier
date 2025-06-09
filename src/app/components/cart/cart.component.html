@@ -1,0 +1,28 @@
+<a routerLink="/" class="home-button">Accueil</a>
+
+<div class="cart-list">
+
+  <div class="cart-item" *ngFor="let item of cartItems$ | async">
+    <span class="prod-name">{{ item.product.productName }}</span>
+    <span>Qte: {{ item.quantity }}</span>
+    <span>Taxes: {{ itemTaxe(item) * item.quantity | currency:'EUR' }}</span>
+    <span>Prix unitaire HT: {{ htItemPrice(item) | currency:'EUR' }}</span>
+    <span>Prix unitaire TTC: {{ ttcItemPrice(item) | currency:'EUR' }}</span>
+
+    <button class="delete-button"
+            (click)="remove(item.product.id)"
+            aria-label="Supprimer">
+      &times;
+    </button>
+  </div>
+
+  <div class="totals">
+    <div class="totals-box">
+      TOTAL Taxes: {{ totalTaxes$ | async | currency:'EUR' }}
+    </div>
+    <div class="totals-box">
+      TOTAL TTC: {{ ttcTotal$ | async | currency:'EUR' }}
+    </div>
+  </div>
+
+</div>

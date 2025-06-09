@@ -1,0 +1,25 @@
+<div class="page-products">
+
+  <div class="title-products">Kata Panier</div>
+
+  <div class="category-filter">
+    <div class="filter-products">
+      <span class="filter-label">filtre:</span>
+      <select [(ngModel)]="categorySelected" (change)="filter()">
+        <option value="ALL">Toutes les catégories</option>
+        <option *ngFor="let category of categories" [value]="category"> {{ category }}  </option>
+      </select>
+    </div>
+
+    <a routerLink="/cart" class="cart-products">
+      Panier: {{ (cartService.totalQuantity$ | async) || 0 }}
+    </a>
+  </div>
+
+  <div class="products-list">
+    <app-product-detail
+      *ngFor="let p of filteredProducts" [product]="p" (add)="add(p, $event)">
+    </app-product-detail>
+  </div>
+
+</div>

@@ -1,0 +1,26 @@
+<div class="product-info">
+  <h3>{{ product.productName || 'Produit sans nom' }}</h3>
+
+  <p class="product-detail">Catégorie : {{ product.category }}</p>
+  <p class="product-detail">Prix TTC : {{ ttcProductPrice | currency:'EUR' }}</p>
+
+  <ng-container *ngIf="quantityLeft > 0; else notAvailable">
+
+    <label class="quantity-label">
+      Quantité <input type="number" [(ngModel)]="quantitySelected" min="1" [max]="quantityLeft" />
+    </label>
+
+    <div class="disponibility-info">
+      <button class="quantity-disponibility" disabled> Disponible: {{ quantityLeft }}
+      </button>
+
+      <button class="add-button" (click)="push()" [disabled]="quantityLeft === 0">
+        Ajouter
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-template #notAvailable>
+    <p class="no-disponibility">Non disponible</p>
+  </ng-template>
+</div>
